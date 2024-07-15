@@ -1,0 +1,6 @@
+.env
+
+# back
+/back/node_modules
+/back/build
+/back/.idea
