@@ -30,7 +30,7 @@ async function routes (fastify, options) {
     const client = await fastify.pg.connect()
     try {
       const { rows } = await client.query(
-        'SELECT id FROM test WHERE id=$1', [req.params.id],
+        'SELECT id, name FROM test WHERE id=$1', [req.params.id],
       )
       console.log('rows', rows);
       // Note: avoid doing expensive computation here, this will block releasing the client

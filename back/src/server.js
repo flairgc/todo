@@ -5,8 +5,6 @@ import dbConnector from './db-connector.js'
 import routes from './routes.js'
 
 
-console.log(process.env)
-
 /**
  * @type {import('fastify').FastifyInstance} Instance of Fastify
  */
@@ -16,11 +14,9 @@ const fastify = Fastify({
 fastify.register(dbConnector)
 fastify.register(routes)
 
-fastify.listen({ port: 3000 }, function (err, address) {
+fastify.listen({ port: Number(process.env.APP_PORT) }, function (err) {
     if (err) {
         fastify.log.error(err)
         process.exit(1)
     }
-    fastify.log.info(err)
-    // Server is now listening on ${address}
 })

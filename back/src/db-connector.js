@@ -6,9 +6,8 @@ import fastifyPostgres from '@fastify/postgres'
  * @param {Object} options
  */
 async function dbConnector (fastify, options) {
-  console.log('DB_CONNECTION_STRING', process.env.DB_CONNECTION_STRING);
   fastify.register(fastifyPostgres, {
-    connectionString: process.env.DB_CONNECTION_STRING
+    connectionString: process.env.APP_DB_CONNECTION_STRING
   })
 }
 
