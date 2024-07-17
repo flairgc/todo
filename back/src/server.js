@@ -1,8 +1,9 @@
-import Fastify from 'fastify'
 import 'dotenv/config'
+import Fastify from 'fastify'
+import fastifyCookie from '@fastify/cookie'
 
 import dbConnector from './db-connector.js'
-import routes from './routes.js'
+import routes from './routes/routes.js'
 
 
 /**
@@ -11,6 +12,9 @@ import routes from './routes.js'
 const fastify = Fastify({
     logger: true
 })
+
+fastify.register(fastifyCookie)
+
 fastify.register(dbConnector)
 fastify.register(routes)
 
