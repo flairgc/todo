@@ -4,8 +4,9 @@ export async function userRoutes(fastify, options) {
   })
 
   fastify.get('/:id', function (req, reply) {
+    console.log('get client', req.params.id);
     fastify.pg.query(
-      'SELECT id, name FROM todo.test WHERE id=$1', [req.params.id],
+      'SELECT id, name FROM todo.users WHERE id=$1', [req.params.id],
       function onResult(error, result) {
         console.log('error', error);
         if (error) {

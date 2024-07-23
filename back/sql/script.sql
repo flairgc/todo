@@ -21,18 +21,18 @@ CREATE INDEX idx_users_login ON todo.users(login);
 DROP TABLE IF EXISTS todo.sessions;
 
 CREATE TABLE todo.sessions (
+    user_id int NOT NULL,
 	access_token text NOT NULL,
 	refresh_token text NOT NULL,
-	user_login text NOT NULL,
 	created_at timestamp DEFAULT now() NOT NULL,
 	expire_access_at timestamp NOT NULL,
 	expire_refresh_at timestamp NOT NULL,
 	device text NULL,
 	user_ip text NULL,
-	CONSTRAINT sessions_access_pk PRIMARY KEY (access_token),
+	CONSTRAINT sessions_access_unique UNIQUE (access_token),
 	CONSTRAINT sessions_refresh_unique UNIQUE (refresh_token),
-	CONSTRAINT sessions_users_fk FOREIGN KEY (user_login) REFERENCES todo.users(login) ON DELETE SET DEFAULT ON UPDATE SET DEFAULT
+	CONSTRAINT sessions_users_fk FOREIGN KEY (user_id) REFERENCES todo.users(id) ON DELETE SET DEFAULT ON UPDATE SET DEFAULT
 );
-CREATE INDEX sessions_access_idx ON todo.sessions USING btree (access_token);
-CREATE INDEX sessions_refresh_idx ON todo.sessions USING btree (refresh_token);
-CREATE INDEX sessions_user_login_idx ON todo.sessions USING btree (user_login);
+--CREATE unique INDEX sessions_access_idx ON todo.sessions USING btree (access_token);
+--CREATE unique INDEX sessions_refresh_idx ON todo.sessions USING btree (refresh_token);
+CREATE INDEX sessions_user_id_idx ON todo.sessions USING btree (user_id);
