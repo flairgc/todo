@@ -7,7 +7,7 @@ import fastifyPostgres from '@fastify/postgres'
  */
 async function dbConnector (fastify, options) {
   fastify.register(fastifyPostgres, {
-    connectionString: process.env.APP_DB_CONNECTION_STRING
+    connectionString: fastify.conf.db_connection,
   })
   // test connection
   fastify.after(async (err) => {

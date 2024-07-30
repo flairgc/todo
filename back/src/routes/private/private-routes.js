@@ -13,7 +13,8 @@ export async function privateContext (fastify) {
 
     try {
       const transaction = await fastify.pg.query(
-        'select user_id from todo.sessions where access_token=$1 and now() < expire_access_at', [access],
+        `SELECT user_id FROM todo.sessions
+         WHERE access_token=$1 AND created_at + interval '1 minute' > now()`, [access],
       );
 
       if (transaction.rows.length !== 1) {

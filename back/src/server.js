@@ -4,23 +4,28 @@ import fastifyCookie from '@fastify/cookie'
 
 import dbConnector from './db-connector.js'
 import routes from './routes/routes.js'
+import { config } from './utils/config.js';
 
-console.log('process.env', process.env.APP_PORT);
+
 /**
  * @type {import('fastify').FastifyInstance} Instance of Fastify
  */
 const fastify = Fastify({
     logger: true
-})
+});
 
-fastify.register(fastifyCookie)
+console.log(`Current version Node.js: ${process.version}`);
 
-fastify.register(dbConnector)
-fastify.register(routes)
+fastify.decorate('conf', config);
 
-fastify.listen({ port: Number(process.env.APP_PORT) }, function (err) {
+fastify.register(fastifyCookie);
+
+fastify.register(dbConnector);
+fastify.register(routes);
+
+fastify.listen({ port: config.port }, function (err) {
     if (err) {
         fastify.log.error(err)
         process.exit(1)
     }
-})
+});

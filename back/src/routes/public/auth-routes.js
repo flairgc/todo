@@ -82,7 +82,7 @@ export async function authRoutes(fastify) {
 
     try {
       const transaction = await fastify.pg.query(
-        'delete from todo.sessions where refresh_token=$1 and now() < expire_refresh_at returning user_id', [refresh],
+        `DELETE FROM todo.sessions WHERE refresh_token=$1 AND created_at + interval '2 minute' > now() returning user_id`, [refresh],
       );
 
       if (transaction.rows.length === 0) {
