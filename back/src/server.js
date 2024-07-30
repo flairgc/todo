@@ -5,7 +5,7 @@ import fastifyCookie from '@fastify/cookie'
 import dbConnector from './db-connector.js'
 import routes from './routes/routes.js'
 
-
+console.log('process.env', process.env.APP_PORT);
 /**
  * @type {import('fastify').FastifyInstance} Instance of Fastify
  */

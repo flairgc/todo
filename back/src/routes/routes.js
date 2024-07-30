@@ -1,6 +1,6 @@
 import fastifyPlugin from 'fastify-plugin';
 import { publicRoutes } from './public/public-routes.js';
-import { privateContext } from './private/provate-routes.js';
+import { privateContext } from './private/private-routes.js';
 
 
 /**

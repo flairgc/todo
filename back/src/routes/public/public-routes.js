@@ -1,11 +1,11 @@
-import { authRoutes } from './auth.js';
+import { authRoutes } from './auth-routes.js';
 
 
-export async function publicRoutes(fastify, options) {
+export async function publicRoutes(fastify) {
 
   fastify.register(authRoutes, { prefix: '/auth' })
 
-  fastify.get('/public', async (request, reply) => {
-    return { message: 'This is a public route' }
+  fastify.get('/hello', async () => {
+    return { message: 'World!' }
   })
 }

@@ -16,8 +16,6 @@ export async function authRoutes(fastify) {
       const salt = crypto.randomBytes(16).toString('hex');
       const hashedPassword = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex')
 
-      console.log('hashedPassword', hashedPassword);
-
       const { rows } = await fastify.pg.query(
         'insert into todo.users (login, pass, salt, name, password_hint) values ($1, $2, $3, $4, $5) returning id',
         [login, hashedPassword, salt, name, passwordHint]
@@ -74,7 +72,7 @@ export async function authRoutes(fastify) {
     }
     catch (err) {
       fastify.log.error(err)
-      reply.status(500).send({ error: 'Internal Server Error' })
+      return reply.status(500).send({ error: 'Internal Server Error' })
     }
   });
 
@@ -112,7 +110,7 @@ export async function authRoutes(fastify) {
         .send({ message: 'Refresh token updated' });
     } catch (err) {
       fastify.log.error(err)
-      reply.status(500).send({ error: 'Internal Server Error' })
+      return reply.status(500).send({ error: 'Internal Server Error' })
     }
   });
 }
