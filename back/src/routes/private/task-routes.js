@@ -7,7 +7,7 @@ export async function taskRoutes(fastify) {
       const { title, description } = request.body;
 
       const { rows } = await fastify.pg.query(
-        'insert into todo.tasks (title, description, user_id) values ($1, $2, $3) returning id, title, description, user_id',
+        'INSERT INTO tasks (title, description, user_id) values ($1, $2, $3) RETURNING id, title, description, user_id',
         [title, description, request.user_id],
       );
 
@@ -25,8 +25,8 @@ export async function taskRoutes(fastify) {
       const { title, description } = request.body;
 
       const { rows } = await fastify.pg.query(
-        `update todo.tasks set title = $2, description = $3, updated_at = now()
-         where id = $1 returning id, title, description, user_id`,
+        `UPDATE tasks SET title = $2, description = $3, updated_at = now()
+         WHERE id = $1 RETURNING id, title, description, user_id`,
         [id, title, description],
       );
 
@@ -45,7 +45,7 @@ export async function taskRoutes(fastify) {
   fastify.get('/', async (request, reply) => {
     try {
       const { rows } = await fastify.pg.query(
-        'select * from todo.tasks where user_id = $1',
+        'SELECT * FROM tasks WHERE user_id = $1',
         [request.user_id],
       )
 
@@ -62,7 +62,7 @@ export async function taskRoutes(fastify) {
       const { id } = request.params;
 
       const { rows } = await fastify.pg.query(
-        'delete from todo.tasks where id = $1',
+        'DELETE FROM tasks WHERE id = $1',
         [id],
       )
 

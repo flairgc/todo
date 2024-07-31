@@ -1,7 +1,6 @@
-import fastifyPlugin from 'fastify-plugin';
-import { publicRoutes } from './public/public-routes.js';
-import { privateContext } from './private/private-routes.js';
-
+import fastifyPlugin from "fastify-plugin";
+import { publicRoutes } from "./public/public-routes.js";
+import { privateContext } from "./private/private-routes.js";
 
 /**
  * A plugin that provide encapsulated routes
@@ -9,9 +8,8 @@ import { privateContext } from './private/private-routes.js';
  * @param {Object} options plugin options, refer to https://fastify.dev/docs/latest/Reference/Plugins/#plugin-options
  */
 async function routes(fastify, options) {
-  fastify.register(publicRoutes)
-  fastify.register(privateContext)
+  fastify.register(publicRoutes);
+  fastify.register(privateContext);
 }
 
-export default fastifyPlugin(routes)
-
+export default fastifyPlugin(routes);

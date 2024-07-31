@@ -15,7 +15,7 @@ const fastify = Fastify({
 
 console.log(`Current version Node.js: ${process.version}`);
 
-fastify.decorate("conf", config);
+fastify.decorate('conf', config);
 
 fastify.register(fastifyCookie);
 
